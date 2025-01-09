@@ -186,8 +186,8 @@ public extension UIView {
      @param completion The completion block, executed after the toast view disappears.
      didTap will be `true` if the toast view was dismissed from a tap.
      */
-    func showToast(_ toast: UIView, duration: TimeInterval = ToastManager.shared.duration, point: CGPoint, completion: ((_ didTap: Bool) -> Void)? = nil) {
-        showToast(toast, duration: duration, position: .point(point), completion: completion)
+    func showToast(_ toast: UIView, duration: TimeInterval = ToastManager.shared.duration, point: CGPoint, offset: UIOffset = .zero, completion: ((_ didTap: Bool) -> Void)? = nil) {
+        showToast(toast, duration: duration, position: .point(point), offset: offset, completion: completion)
     }
     
     // MARK: - Hide Toast Methods
@@ -827,8 +827,8 @@ public extension UIView {
             ])
         case .point(let point):
             NSLayoutConstraint.activate([
-                centerXAnchor.constraint(equalTo: superview.leadingAnchor, constant: point.x),
-                centerYAnchor.constraint(equalTo: superview.topAnchor, constant: point.y)
+                centerXAnchor.constraint(equalTo: superview.leadingAnchor, constant: point.x + offset.horizontal),
+                centerYAnchor.constraint(equalTo: superview.topAnchor, constant: point.y + offset.vertical)
             ])
         }
     }
